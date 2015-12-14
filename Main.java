@@ -1,6 +1,6 @@
 //TODO: <name>
 //TODO: <date>
-//Practice 2011 - 06: //TODO
+//Practice 2011 - 06: Triangular Matrices
 
 public class  {
   public static void main(String[] args) {
