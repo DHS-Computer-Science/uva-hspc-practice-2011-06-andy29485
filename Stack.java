@@ -9,13 +9,18 @@ public class Stack {
   }
 
   public void put(Matrix m) {
-    m.setPrev(topp);
-    topp = m;
+    Matrix tmp = new Matrix(m);
+    tmp.setPrev(topp);
+    topp = tmp;
   }
 
   public Matrix get() {
     Matrix m = topp;
     topp = topp.getPrev();
     return m;
+  }
+
+  public Matrix peek() {
+    return topp;
   }
 }

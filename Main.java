@@ -34,20 +34,21 @@ public class Main {
       }
       String[] strExpression = input.readLine().split("\\s+");
       for(String strValue : strExpression) {
-        //System.err.println(strValue);
         if(strValue.equals("+")) {
           tmp = stack.get();
-          stack.put(tmp.add(stack.get()));
+          stack.put(stack.get().add(tmp));
         }
         else if(strValue.equals("*")) {
           tmp = stack.get();
-          stack.put(tmp.mult(stack.get()));
+          stack.put(stack.get().mult(tmp));
         }
         else {
           stack.put(map.get(strValue));
         }
+        if(stack.peek().getSize() == 0)
+          break;
       }
-      System.out.println(stack.get().toString());
+      System.out.println(stack.get());
     }
 
     //close stream

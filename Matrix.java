@@ -16,6 +16,18 @@ public class Matrix {
     prev = null;
   }
 
+  public Matrix(Matrix tmp) {
+    aanMatrix = new int[tmp.getSize()][];
+    for(int i=0; i<tmp.getSize(); i++) {
+      aanMatrix[i] = new int[i+1];
+      for(int j=0; j<=i; j++) {
+        this.set(i, j, tmp.get(i, j));
+      }
+    }
+    anPointer = new int[] {0, 0};
+    prev = null;
+  }
+
   public Matrix(int nSize, int... nValues) {
     aanMatrix = new int[nSize][];
     int nCount = 0;
@@ -64,9 +76,8 @@ public class Matrix {
   }
 
   public Matrix add(Matrix rhs) {
-    if(this.getSize() != rhs.getSize())
-      return new Matrix(0);
-    Matrix sum = new Matrix(this.getSize());
+    Matrix sum = new Matrix(this.getSize()>rhs.getSize()
+                            ? this.getSize() : rhs.getSize());
     for(int i=0; i<aanMatrix.length; i++) {
       for(int j=0; j<aanMatrix[i].length; j++) {
         sum.set(i, j, this.get(i,j) + rhs.get(i,j));
@@ -78,13 +89,13 @@ public class Matrix {
   public Matrix mult(Matrix rhs) {
     if(this.getSize() > rhs.getSize())
       return new Matrix(0);
-    Matrix product = new Matrix(this.getSize());
-    for(int i=0; i<aanMatrix.length; i++) {
-      for(int j=0; j<aanMatrix[i].length; j++) {
+    Matrix product = new Matrix(rhs.getSize()-this.getSize()+1);
+    for(int i=0; i<(rhs.getSize()-this.getSize()+1); i++) {
+      for(int j=0; j<(i+1); j++) {
         int tmp = 0;
-        for(int k=0; k<aanMatrix.length; k++) {
+        for(int k=0; k<this.getSize(); k++) {
           for(int l=0; l<aanMatrix[k].length; l++) {
-            tmp += this.get(k, l)*rhs.get(i+k,j+l);
+            tmp += this.get(k, l)*rhs.get(i+k, j+l);
           }
         }
         product.set(i, j, tmp);
@@ -105,13 +116,11 @@ public class Matrix {
     String strOut = "";
     for(int i=0; i<aanMatrix.length; i++) {
       for(int j=0; j<aanMatrix[i].length; j++) {
-        strOut += aanMatrix[i][j];
-        if(j < aanMatrix[i].length-1)
-          strOut += " ";
+        strOut += aanMatrix[i][j] + " ";
       }
       if(i < aanMatrix.length-1)
         strOut += "\n";
     }
-    return strOut;
+    return strOut.length() == 0 ? "Invalid Expression" : strOut;
   }
 }
