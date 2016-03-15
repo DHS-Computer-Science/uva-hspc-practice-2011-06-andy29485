@@ -32,8 +32,9 @@ public class Main {
         }
         map.put(name, tmp);
       }
-      String strExpression = input.readLine().split("\\s+");
+      String[] strExpression = input.readLine().split("\\s+");
       for(String strValue : strExpression) {
+        //System.err.println(strValue);
         if(strValue.equals("+")) {
           tmp = stack.get();
           stack.put(tmp.add(stack.get()));
@@ -46,7 +47,7 @@ public class Main {
           stack.put(map.get(strValue));
         }
       }
-      System.out.println(stack.pop());
+      System.out.println(stack.get().toString());
     }
 
     //close stream

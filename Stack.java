@@ -9,7 +9,8 @@ public class Stack {
   }
 
   public void put(Matrix m) {
-    m.setPrev(m);
+    m.setPrev(topp);
+    topp = m;
   }
 
   public Matrix get() {

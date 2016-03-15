@@ -12,7 +12,7 @@ public class Matrix {
     for(int i=0; i<nSize; i++) {
       aanMatrix[i] = new int[i+1];
     }
-    anPointer = {0, 0};
+    anPointer = new int[] {0, 0};
     prev = null;
   }
 
@@ -25,7 +25,7 @@ public class Matrix {
         aanMatrix[i][j] = nValues[nCount++];
       }
     }
-    anPointer = {0, 0};
+    anPointer = new int[] {0, 0};
     prev = null;
   }
 
@@ -69,7 +69,7 @@ public class Matrix {
     Matrix sum = new Matrix(this.getSize());
     for(int i=0; i<aanMatrix.length; i++) {
       for(int j=0; j<aanMatrix[i].length; j++) {
-        sum.set(i, j, this.get(i,j) + rhs.get(i,j);
+        sum.set(i, j, this.get(i,j) + rhs.get(i,j));
       }
     }
     return sum;
@@ -103,12 +103,15 @@ public class Matrix {
 
   public String toString() {
     String strOut = "";
-    for(int[] anValues : aanMatrix) {
-      for(int nValue : anValues) {
-        strOut += nValue + " ";
+    for(int i=0; i<aanMatrix.length; i++) {
+      for(int j=0; j<aanMatrix[i].length; j++) {
+        strOut += aanMatrix[i][j];
+        if(j < aanMatrix[i].length-1)
+          strOut += " ";
       }
-      strOut = strOut.substring(0, strOut.length()-1)+"\n";
+      if(i < aanMatrix.length-1)
+        strOut += "\n";
     }
-    return strOut.substring(0, strOut.length()-1);
+    return strOut;
   }
 }
